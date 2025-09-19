@@ -17,12 +17,10 @@ class Zmena:
 
 
 def odesli_email(prijemce, predmet, text):
-    # Tento kód je jen ukázka, pro reálné použití je třeba ho upravit
-    # s reálnými údaji pro SMTP server a zabezpečením (SSL/TLS)
     print(f"Odesílám e-mail na adresu: {prijemce}")
     print(f"Předmět: {predmet}")
     print(f"Text zprávy:\n{text}\n")
-    # Zde by se použil modul smtplib pro reálné odeslání
+    # Sem později vložím modul smtplib pro reálné odeslání
 
 
 def ziskej_vstup():
