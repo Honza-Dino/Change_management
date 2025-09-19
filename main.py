@@ -20,7 +20,7 @@ def odesli_email(prijemce, predmet, text):
     print(f"Odesílám e-mail na adresu: {prijemce}")
     print(f"Předmět: {predmet}")
     print(f"Text zprávy:\n{text}\n")
-    # Sem později vložím modul smtplib pro reálné odeslání
+    # Sem později vložím modul smtplib pro reálné odeslání - neveřejná informace o skutečných adresách a přístupech
 
 
 def ziskej_vstup():
