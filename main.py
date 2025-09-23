@@ -30,7 +30,15 @@ def ziskej_vstup():
     stat = input("Zadejte stát cílové destinace: ")
     doprava = input("Zadejte druh dopravy: ")
     hotel = input("Zadejte název hotelu: ")
-    cena = input("Zadejte odhadovanou cenu: ")
+
+    # Zabezpečení vstupu pro cenu
+    while True:
+        try:
+            cena_str = input("Zadejte odhadovanou cenu: ")
+            cena = int(cena_str)
+            break
+        except ValueError:
+            print("Neplatná hodnota. Zadejte prosím cenu v číslech.")
 
     return Zmena(jmeno, prijmeni, mesto, stat, doprava, hotel, cena)
 
@@ -43,13 +51,17 @@ def schvalovaci_proces(zmena):
     odesli_email(email_vedouciho, predmet_vedouci, text_vedouci)
 
     # Simulační část - zde by se čekalo na reálnou odpověď
-    odpoved = input("Vedoucí schválil? (ano/ne): ")
-    if odpoved.lower() == "ano":
-        zmena.schvaleni_vedouci = True
-        print("Schváleno vedoucím. Pokračuji k řediteli.")
-    else:
-        print("Požadavek zamítnut vedoucím.")
-        return
+    while True:
+        odpoved = input("Vedoucí schválil? (ano/ne): ")
+        if odpoved == "ano":
+            zmena.schvaleni_vedouci = True
+            print("Schváleno vedoucím. Pokračuji k řediteli.")
+            break
+        elif odpoved == "ne":
+            print("Požadavek zamítnut vedoucím.")
+            return
+        else:
+            print("Neplatná odpověď. Zadejte prosím 'ano' nebo 'ne'.")
 
     # 2. Schválení ředitelem
     email_reditel = "reditel@firma.cz"
@@ -57,13 +69,17 @@ def schvalovaci_proces(zmena):
     text_reditel = f"Požadavek od {zmena.jmeno} {zmena.prijmeni} byl schválen vedoucím. Prosím o vaše schválení."
     odesli_email(email_reditel, predmet_reditel, text_reditel)
 
-    odpoved = input("Ředitel schválil? (ano/ne): ")
-    if odpoved.lower() == "ano":
-        zmena.schvaleni_reditel = True
-        print("Schváleno ředitelem. Pokračuji k jednateli.")
-    else:
-        print("Požadavek zamítnut ředitelem.")
-        return
+    while True:
+        odpoved = input("Ředitel schválil? (ano/ne): ")
+        if odpoved == "ano":
+            zmena.schvaleni_reditel = True
+            print("Schváleno ředitelem. Pokračuji k jednateli.")
+            break
+        elif odpoved == "ne":
+            print("Požadavek zamítnut ředitelem.")
+            return
+        else:
+            print("Neplatná odpověď. Zadejte prosím 'ano' nebo 'ne'.")
 
     # 3. Schválení jednatelem
     email_jednatel = "jednatel@firma.cz"
@@ -71,14 +87,19 @@ def schvalovaci_proces(zmena):
     text_jednatel = f"Požadavek od {zmena.jmeno} {zmena.prijmeni} byl schválen vedoucím i ředitelem. Prosím o konečné schválení."
     odesli_email(email_jednatel, predmet_jednatel, text_jednatel)
 
-    odpoved = input("Jednatel schválil? (ano/ne): ")
-    if odpoved.lower() == "ano":
-        zmena.schvaleni_jednatel = True
-        print("Požadavek byl schválen jednatelem. Kompletní schválení!")
-    else:
-        print("Požadavek zamítnut jednatelem.")
+    while True:
+        odpoved = input("Jednatel schválil? (ano/ne): ")
+        if odpoved == "ano":
+            zmena.schvaleni_jednatel = True
+            print("Požadavek byl schválen jednatelem. Kompletní schválení!")
+            break
+        elif odpoved == "ne":
+            print("Požadavek zamítnut jednatelem.")
+            return
+        else:
+            print("Neplatná odpověď. Zadejte prosím 'ano' nebo 'ne'.")
 
-
+# Zde půjde dopsat v případě zamítnutí vrácení žadateli k doplnění, nebo vrácení o krok níž. Teď se to zastaví, když kdokoliv zamítne
 # Spuštění programu
 if __name__ == "__main__":
     nova_zmena = ziskej_vstup()
