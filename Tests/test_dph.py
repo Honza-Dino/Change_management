@@ -1,5 +1,5 @@
 import pytest
-from test_example import test
+from
 
 @pytest.mark.parametrize("vstup, ocekavany_vystup", [
     ("100", 121.00),
