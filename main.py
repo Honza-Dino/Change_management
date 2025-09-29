@@ -22,12 +22,8 @@ def odesli_email(prijemce, predmet, text):
     print(f"Text zprávy:\n{text}\n")
     # Sem později vložím modul smtplib pro reálné odeslání - neveřejná informace o skutečných adresách a přístupech
 
+from DPH.dph import vypocitej_cenu_s_dph
 
-def vypocitej_cenu_s_dph(cena_bez_dph_str):
-    cena_bez_dph = float(cena_bez_dph_str)
-    sazba_dph = 0.21
-    cena_s_dph = cena_bez_dph * (1 + sazba_dph)
-    return round(cena_s_dph, 2)
 
 def ziskej_vstup():
 
@@ -80,7 +76,6 @@ def ziskej_vstup():
             break
 
         except ValueError:
-            # Tento blok zachytí chyby, pokud by uživatel zadal "abcd" nebo prázdný vstup
             print("Neplatná hodnota. Zadejte prosím cenu v číslech.")
 
     return Zmena(jmeno, prijmeni, mesto, stat, doprava, hotel, cena)
