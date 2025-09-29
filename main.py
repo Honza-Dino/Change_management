@@ -22,6 +22,7 @@ def odesli_email(prijemce, predmet, text):
     print(f"Text zprávy:\n{text}\n")
     # Sem později vložím modul smtplib pro reálné odeslání - neveřejná informace o skutečných adresách a přístupech
 
+#import funkce do programu ze složky DPH
 from DPH.dph import vypocitej_cenu_s_dph
 
 
