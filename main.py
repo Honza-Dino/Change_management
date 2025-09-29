@@ -23,21 +23,64 @@ def odesli_email(prijemce, predmet, text):
     # Sem později vložím modul smtplib pro reálné odeslání - neveřejná informace o skutečných adresách a přístupech
 
 
-def ziskej_vstup():
-    jmeno = input("Zadejte jméno: ")
-    prijmeni = input("Zadejte příjmení: ")
-    mesto = input("Zadejte město cílové destinace: ")
-    stat = input("Zadejte stát cílové destinace: ")
-    doprava = input("Zadejte druh dopravy: ")
-    hotel = input("Zadejte název hotelu: ")
+def vypocitej_cenu_s_dph(cena_bez_dph_str):
+    cena_bez_dph = float(cena_bez_dph_str)
+    sazba_dph = 0.21
+    cena_s_dph = cena_bez_dph * (1 + sazba_dph)
+    return round(cena_s_dph, 2)
 
-    # Zabezpečení vstupu pro cenu
+def ziskej_vstup():
+
+    jmeno = ""
+    while not jmeno.strip():  # Opakuje se, dokud jméno po odstranění mezer není prázdné
+        jmeno = input("Zadejte jméno: ")
+        if not jmeno.strip():
+            print("Chyba: Jméno nemůže být prázdné. Zadejte prosím platnou hodnotu.")
+
+    prijmeni = ""
+    while not prijmeni.strip():
+        prijmeni = input("Zadejte příjmení: ")
+        if not prijmeni.strip():
+            print("Chyba: Příjmení nemůže být prázdné. Zadejte prosím platnou hodnotu.")
+
+    mesto = ""
+    while not mesto.strip():
+        mesto = input("Zadejte město cílové destinace: ")
+        if not mesto.strip():
+            print("Chyba: Město nemůže být prázdné.")
+
+    stat = ""
+    while not stat.strip():
+        stat = input("Zadejte stát cílové destinace: ")
+        if not stat.strip():
+            print("Chyba: Stát nemůže být prázdný.")
+
+    doprava = ""
+    while not doprava.strip():
+        doprava = input("Zadejte druh dopravy: ")
+        if not doprava.strip():
+            print("Chyba: Doprava nemůže být prázdná.")
+
+    hotel = ""
+    while not hotel.strip():
+        hotel = input("Zadejte název hotelu: ")
+        if not hotel.strip():
+            print("Chyba: Hotel nemůže být prázdný.")
+
     while True:
         try:
-            cena_str = input("Zadejte odhadovanou cenu: ")
-            cena = int(cena_str)
+            cena_str = input("Zadejte odhadovanou cenu bez DPH: ")
+
+            if not cena_str.strip():
+                print("Chyba: Cena nemůže být prázdná.")
+                continue
+            cena = vypocitej_cenu_s_dph(cena_str)
+
+            print(f"Cena s DPH: {cena} Kč")
             break
+
         except ValueError:
+            # Tento blok zachytí chyby, pokud by uživatel zadal "abcd" nebo prázdný vstup
             print("Neplatná hodnota. Zadejte prosím cenu v číslech.")
 
     return Zmena(jmeno, prijmeni, mesto, stat, doprava, hotel, cena)
