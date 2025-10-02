@@ -22,6 +22,8 @@ def odesli_email(prijemce, predmet, text):
     print(f"Text zprávy:\n{text}\n")
     # Sem později vložím modul smtplib pro reálné odeslání - neveřejná informace o skutečných adresách a přístupech
 
+#import funkce do programu ze složky API
+from API.Mapy_cz import najdi_mesto
 #import funkce do programu ze složky DPH
 from DPH.dph import vypocitej_cenu_s_dph
 
@@ -45,6 +47,12 @@ def ziskej_vstup():
         mesto = input("Zadejte město cílové destinace: ")
         if not mesto.strip():
             print("Chyba: Město nemůže být prázdné.")
+        else:
+            vysledek = najdi_mesto(mesto)
+            if vysledek:
+                print(f"Nalezeno město: {vysledek['nazev']} ({vysledek['souradnice']})")
+            else:
+                print("Město se nepodařilo najít přes API Mapy.cz.")
 
     stat = ""
     while not stat.strip():
