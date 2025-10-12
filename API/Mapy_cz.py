@@ -1,13 +1,24 @@
+import os
 import requests
+from dotenv import load_dotenv
 
-API_KEY = "XFF10pwXd6fSYk0c4tBX-yYpYmiZ1p_gYHOB0F3C6p8"
+
+load_dotenv()
+
+API_KEY = os.getenv("MAPY_API_KEY")
+
+if not API_KEY:
+    raise ValueError("API klíč 'MAPY_API_KEY' není nastaven v souboru .env.")
+
+
 URL = "https://api.mapy.cz/v1/geocode"
 
 def najdi_mesto(mesto: str):
     params = {
         "query": mesto,
-        "apikey": API_KEY
+        "apikey": API_KEY # Používáme klíč načtený z paměti
     }
+
     response = requests.get(URL, params=params)
 
     if response.status_code == 200:
